@@ -1,0 +1,42 @@
+services:
+  web:
+    container_name: web
+    build: .
+    ports:
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: mariadb:lts
+    restart: unless-stopped
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=gestionale_pcto
+      - MARIADB_USER=laravel
+      - MARIADB_PASSWORD=laravel
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: unless-stopped
+    ports:
+      - 8080:80
+
+  kanboard:
+    container_name: kanboard
+    image: kanboard/kanboard
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    volumes:
+      - kanboard_data:/var/www/app/data
+
+volumes:
+  db_data:
+  kanboard_data:
+
