@@ -3,7 +3,7 @@
     "dockerComposeFile": "../compose.dev.yaml",
     "service": "web",
     "workspaceFolder": "/var/www/html",
-    "postCreateCommand": "composer install && php artisan key:generate && php artisan migrate",
+    "postCreateCommand": "composer install && cp .env.example .env && php artisan key:generate && php artisan migrate",
     "forwardPorts": [80, 8080],
     "customizations": {
         "vscode": {
